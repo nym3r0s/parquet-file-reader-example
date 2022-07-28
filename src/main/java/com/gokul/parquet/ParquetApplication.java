@@ -24,8 +24,13 @@ public class ParquetApplication {
 
     AvroParquetReader<GenericRecord> reader = new AvroParquetReader<GenericRecord>(path);
     GenericRecord record;
-    while ((record = reader.read()) != null) {
-      System.out.println(record.toString());
-    }
+    record = reader.read();
+    System.out.println(record.getSchema().toString());
+    do {
+      System.out.println("store_address_id: "+ record.get("store_address_id"));
+      System.out.println("p_creation_date: "+ record.get("p_creation_date"));
+      System.out.println("number_views: "+ record.get("number_views"));
+      System.out.println("number_orders: "+ record.get("number_orders"));
+    } while ((record = reader.read()) != null);
   }
 }
