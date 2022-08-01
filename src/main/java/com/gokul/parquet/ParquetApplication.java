@@ -17,7 +17,6 @@ public class ParquetApplication {
     readParquetAndPrint();
   }
 
-
   private static void readParquetAndPrint() throws URISyntaxException, IOException {
     File file =new File(ParquetApplication.class.getClassLoader().getResource("part-00000-42da1110-5dde-4a06-92d2-8cc3805e9acc-c000.snappy.parquet").toURI());
     Path path = new Path(file.toURI());
