@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.hadoop.fs.Path;
 import org.apache.parquet.avro.AvroParquetReader;
+import org.apache.parquet.avro.AvroParquetReader.Builder;
+import org.apache.parquet.hadoop.ParquetReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -21,7 +23,8 @@ public class ParquetApplication {
     File file =new File(ParquetApplication.class.getClassLoader().getResource("part-00000-42da1110-5dde-4a06-92d2-8cc3805e9acc-c000.snappy.parquet").toURI());
     Path path = new Path(file.toURI());
 
-    AvroParquetReader<GenericRecord> reader = new AvroParquetReader<GenericRecord>(path);
+    ParquetReader<GenericRecord> reader = AvroParquetReader.<GenericRecord>builder(path).build();
+
     GenericRecord record;
     record = reader.read();
     System.out.println(record.getSchema().toString());
